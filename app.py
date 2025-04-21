@@ -50,6 +50,7 @@ with st.spinner("Veriler getiriliyor ve tahmin üretiliyor..."):
         df_real.columns = ["Tarih", "Gerçek"]
         df_pred = forecast[["ds", "yhat"]].rename(columns={"ds": "Tarih", "yhat": "Tahmin"})
         merged = pd.merge(df_real, df_pred, on="Tarih", how="inner").tail(7)
+        merged = merged.dropna()
 
         if len(merged) >= 3:
             mape = (abs((merged["Gerçek"] - merged["Tahmin"]) / merged["Gerçek"])).mean() * 100
