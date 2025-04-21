@@ -55,7 +55,7 @@ with st.spinner("Veriler getiriliyor ve tahmin üretiliyor..."):
         if len(merged) >= 3:
             mape = (abs((merged["Gerçek"] - merged["Tahmin"]) / merged["Gerçek"])).mean() * 100
             mae = mean_absolute_error(merged["Gerçek"], merged["Tahmin"])
-            rmse = mean_squared_error(merged["Gerçek"], merged["Tahmin"], squared=False)
+            rmse = ((merged["Gerçek"] - merged["Tahmin"]) ** 2).mean() ** 0.5
 
             st.subheader("📐 Hata Analizi (Son 7 Gün)")
             st.markdown(f"- **MAPE (Yüzde Hata)**: {mape:.2f} %")
